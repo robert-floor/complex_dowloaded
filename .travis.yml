@@ -11,24 +11,24 @@ script:
   - docker run -e CI=true cygnetops/react-test npm test
 
 after_success:
-  - docker build -t cygnetops/multi-client-10-14 ./client
-  - docker build -t cygnetops/multi-nginx-10-14 ./nginx
-  - docker build -t cygnetops/multi-server-10-14 ./server
-  - docker build -t cygnetops/multi-worker-10-14 ./worker
+  - docker build -t rflfrubix/multi-client-10-14 ./client
+  - docker build -t rflfrubix/multi-nginx-10-14 ./nginx
+  - docker build -t rflfrubix/multi-server-10-14 ./server
+  - docker build -t rflfrubix/multi-worker-10-14 ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push cygnetops/multi-client-10-14
-  - docker push cygnetops/multi-nginx-10-14
-  - docker push cygnetops/multi-server-10-14
-  - docker push cygnetops/multi-worker-10-14
+  - docker push rflfrubix/multi-client-10-14
+  - docker push rflfrubix/multi-nginx-10-14
+  - docker push rflfrubix/multi-server-10-14
+  - docker push rflfrubix/multi-worker-10-14
 
 deploy:
   provider: elasticbeanstalk
-  region: 'us-east-1'
+  region: 'us-east-2'
   app: 'multi-docker'
   env: 'MultiDocker-env'
-  bucket_name: 'elasticbeanstalk-us-east-1-923445559289'
+  bucket_name: 'elasticbeanstalk-us-east-2-779341231822'
   bucket_path: 'docker-multi'
   on:
     branch: master
